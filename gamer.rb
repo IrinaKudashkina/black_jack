@@ -11,12 +11,13 @@ class Gamer
     @balance = 100
   end
 
-  def sum_of_points
-    sum, ace = 0, 0
+  def score
+    sum = 0
+    ace = 0
     cards.each do |card|
       ace += 1 if card.include?("Т")
       sum += DECK[card]
     end
-    (ace > 0 && sum + 10 > 21) || ace == 0 ? sum : sum + 10
+    (ace.positive? && sum + 10 > 21) || ace.zero? ? sum : sum + 10
   end
 end

@@ -1,5 +1,4 @@
 class GameSession
-
   attr_accessor :bank, :deck
   attr_reader :gamer, :dealer
 
@@ -37,12 +36,12 @@ class GameSession
 
   def find_winner
     winner = gamer
-    if gamer.sum_of_points == dealer.sum_of_points || gamer.sum_of_points > 21 && dealer.sum_of_points > 21
+    if gamer.score == dealer.score || gamer.score > 21 && dealer.score > 21
       winner = "Ничья"
-    elsif gamer.sum_of_points <= 21 && dealer.sum_of_points <= 21
-      winner = dealer if dealer.sum_of_points > gamer.sum_of_points
+    elsif gamer.score <= 21 && dealer.score <= 21
+      winner = dealer if dealer.score > gamer.score
     else
-      winner = dealer if dealer.sum_of_points < 21
+      winner = dealer if dealer.score < 21
     end
     winner
   end
@@ -57,5 +56,4 @@ class GameSession
     end
     winner
   end
-
 end

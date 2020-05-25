@@ -18,7 +18,6 @@ class GameMenu
   end
 
   def menu_master(level, go_to, the_object = nil)
-    #cancel_choice
     user_choice = gets.chomp.to_i
     limit = level.keys.length - 1
     if the_object
@@ -46,7 +45,7 @@ class GameMenu
   end
 
   def show_cards
-    puts "#{gamer.name}, Ваши карты: #{gamer.cards.join(", ")}. Сумма очков: #{gamer.sum_of_points}"
+    puts "#{gamer.name}, Ваши карты: #{gamer.cards.join(', ')}. Сумма очков: #{gamer.score}"
     puts "Карты #{dealer.name}: #{'* ' * dealer.cards.size}"
   end
 
@@ -61,7 +60,7 @@ class GameMenu
   end
 
   def dealer_turn
-    if dealer.sum_of_points >= 17 || dealer.cards.size == 3
+    if dealer.score >= 17 || dealer.cards.size == 3
       puts "#{dealer.name} пропускает ход"
     else
       session.distribute_to(dealer)
@@ -80,8 +79,8 @@ class GameMenu
   end
 
   def open_cards
-    puts "#{gamer.name}, Ваши карты: #{gamer.cards.join(", ")}. Сумма очков: #{gamer.sum_of_points}"
-    puts "Карты #{dealer.name}: #{dealer.cards.join(", ")}. Сумма очков: #{dealer.sum_of_points}"
+    puts "#{gamer.name}, Ваши карты: #{gamer.cards.join(', ')}. Сумма очков: #{gamer.score}"
+    puts "Карты #{dealer.name}: #{dealer.cards.join(', ')}. Сумма очков: #{dealer.score}"
     result
   end
 
@@ -102,5 +101,6 @@ class GameMenu
 
   def exit_program
     puts "Спасибо за интерес к нашей игре! До новых встреч!"
+    exit 0
   end
 end
