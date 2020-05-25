@@ -61,19 +61,20 @@ class GameMenu
   end
 
   def dealer_turn
-    if dealer.sum_of_points >=17
+    if dealer.sum_of_points >= 17
       puts "#{dealer.name} пропускает ход"
-      gamer_turn
     else
       session.distribute_to(dealer)
       puts "#{dealer.name} берет карту"
+      check_3cards!
       show_cards
-      gamer_turn
     end
+    gamer_turn
   end
 
   def add_card
     session.distribute_to(gamer)
+    check_3cards!
     show_cards
     dealer_turn
   end
@@ -84,8 +85,13 @@ class GameMenu
     result
   end
 
+  def check_3cards!
+    open_cards if gamer.cards.size == 3 && dealer.cards.size == 3
+  end
+
   def result
     puts "Подсчет результатов"
+    proposal
   end
 
   def exit_program

@@ -11,7 +11,7 @@ class GameSession
   end
 
   def distribute_to(player)
-    card = deck[rand(0..deck.size)]
+    card = deck[rand(0...deck.size)]
     player.cards << card
     deck.delete(card)
   end
@@ -22,6 +22,8 @@ class GameSession
   end
 
   def start
+    gamer.cards = []
+    dealer.cards = []
     2.times { distribute_to(gamer) }
     2.times { distribute_to(dealer) }
     bet_from(gamer)
