@@ -21,6 +21,11 @@ class GameSession
     self.bank += 10
   end
 
+  def pay_to(player)
+    player.balance += 10
+    self.bank -= 10
+  end
+
   def start
     gamer.cards = []
     dealer.cards = []
@@ -29,4 +34,28 @@ class GameSession
     bet_from(gamer)
     bet_from(dealer)
   end
+
+  def find_winner
+    winner = gamer
+    if gamer.sum_of_points == dealer.sum_of_points || gamer.sum_of_points > 21 && dealer.sum_of_points > 21
+      winner = "Ничья"
+    elsif gamer.sum_of_points <= 21 && dealer.sum_of_points <= 21
+      winner = dealer if dealer.sum_of_points > gamer.sum_of_points
+    else
+      winner = dealer if dealer.sum_of_points < 21
+    end
+    winner
+  end
+
+  def end
+    winner = find_winner
+    if winner == "Ничья"
+      pay_to(gamer)
+      pay_to(dealer)
+    else
+      2.times { pay_to(winner) }
+    end
+    winner
+  end
+
 end

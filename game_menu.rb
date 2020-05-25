@@ -61,7 +61,7 @@ class GameMenu
   end
 
   def dealer_turn
-    if dealer.sum_of_points >= 17
+    if dealer.sum_of_points >= 17 || dealer.cards.size == 3
       puts "#{dealer.name} пропускает ход"
     else
       session.distribute_to(dealer)
@@ -90,7 +90,13 @@ class GameMenu
   end
 
   def result
-    puts "Подсчет результатов"
+    puts "Игра окончена!"
+    winner = session.end
+    if winner == "Ничья"
+      puts winner
+    else
+      puts "Победитель: #{winner.name}"
+    end
     proposal
   end
 
