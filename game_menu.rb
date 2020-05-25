@@ -1,7 +1,9 @@
 class GameMenu
   PROPOSAL = { 1 => :session_start, 0 => :exit_program }.freeze
+  GAMER_TURN_FULL = { 1 => :dealer_turn, 2 => :add_card, 3 => :open_cards }.freeze
+  GAMER_TURN = { 1 => :dealer_turn, 2 => :open_cards }.freeze
 
-  attr_accessor :gamer, :dealer
+  attr_accessor :gamer, :dealer, :session
 
   def initialize
     puts "Вас приветствует игра Black Jack!"
@@ -37,14 +39,45 @@ class GameMenu
   end
 
   def session_start
-    session = GameSession.new(gamer, dealer)
+    self.session = GameSession.new(gamer, dealer)
     session.start
     show_cards
+    gamer_turn
   end
 
   def show_cards
     puts "#{gamer.name}, Ваши карты: #{gamer.cards.join(", ")}. Сумма очков: #{gamer.sum_of_points}"
     puts "Карты #{dealer.name}: #{'* ' * dealer.cards.size}"
+  end
+
+  def gamer_turn
+    if gamer.cards.size == 2
+      puts "#{gamer.name}, Ваш ход! Пропустить - 1  Добавить карту - 2  Открыть карты - 3"
+      menu_master(GAMER_TURN_FULL, :gamer_turn)
+    else
+      puts "#{gamer.name}, Ваш ход! Пропустить - 1  Открыть карты - 2"
+      menu_master(GAMER_TURN, :gamer_turn)
+    end
+  end
+
+  def dealer_turn
+    puts "Ход дилера"
+  end
+
+  def add_card
+    session.distribute_to(gamer)
+    show_cards
+    dealer_turn
+  end
+
+  def open_cards
+    puts "#{gamer.name}, Ваши карты: #{gamer.cards.join(", ")}. Сумма очков: #{gamer.sum_of_points}"
+    puts "Карты #{dealer.name}: #{dealer.cards.join(", ")}. Сумма очков: #{dealer.sum_of_points}"
+    result
+  end
+
+  def result
+    puts "Подсчет результатов"
   end
 
   def exit_program
