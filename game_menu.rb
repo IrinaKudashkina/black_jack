@@ -1,5 +1,5 @@
 class GameMenu
-  PROPOSAL = { 1 => :start, 0 => :exit_program }.freeze
+  PROPOSAL = { 1 => :session_start, 0 => :exit_program }.freeze
 
   attr_accessor :gamer, :dealer
 
@@ -36,10 +36,9 @@ class GameMenu
     menu_master(PROPOSAL, :proposal)
   end
 
-  def start
-    puts GameSession.new(gamer, dealer).inspect
-    puts gamer.inspect
-    puts dealer.inspect
+  def session_start
+    session = GameSession.new(gamer, dealer)
+    session.start
   end
 
   def exit_program
