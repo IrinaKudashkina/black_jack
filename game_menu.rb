@@ -39,6 +39,12 @@ class GameMenu
   def session_start
     session = GameSession.new(gamer, dealer)
     session.start
+    show_cards
+  end
+
+  def show_cards
+    puts "#{gamer.name}, Ваши карты: #{gamer.cards.join(", ")}. Сумма очков: #{gamer.sum_of_points}"
+    puts "Карты #{dealer.name}: #{'* ' * dealer.cards.size}"
   end
 
   def exit_program
