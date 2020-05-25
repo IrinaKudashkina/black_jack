@@ -19,9 +19,4 @@ class Gamer
     end
     (ace > 0 && sum + 10 > 21) || ace == 0 ? sum : sum + 10
   end
-
-  def add_cart
-
-  end
-
 end

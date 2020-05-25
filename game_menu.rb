@@ -61,7 +61,15 @@ class GameMenu
   end
 
   def dealer_turn
-    puts "Ход дилера"
+    if dealer.sum_of_points >=17
+      puts "#{dealer.name} пропускает ход"
+      gamer_turn
+    else
+      session.distribute_to(dealer)
+      puts "#{dealer.name} берет карту"
+      show_cards
+      gamer_turn
+    end
   end
 
   def add_card
@@ -83,5 +91,4 @@ class GameMenu
   def exit_program
     puts "Спасибо за интерес к нашей игре! До новых встреч!"
   end
-
 end
