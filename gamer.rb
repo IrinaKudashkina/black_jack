@@ -16,7 +16,7 @@ class Gamer
     ace = 0
     cards.each do |card|
       ace += 1 if card.include?("Т")
-      sum += DECK[card]
+      sum += Game::DECK[card]
     end
     (ace.positive? && sum + 10 > 21) || ace.zero? ? sum : sum + 10
   end

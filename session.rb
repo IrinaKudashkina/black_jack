@@ -1,11 +1,11 @@
-class GameSession
+class Session
   attr_accessor :bank, :deck
   attr_reader :gamer, :dealer
 
   def initialize(gamer, dealer)
     @gamer = gamer
     @dealer = dealer
-    @deck = DECK.keys
+    @deck = Game::DECK.keys
     @bank = 0
   end
 
@@ -46,7 +46,7 @@ class GameSession
     winner
   end
 
-  def end
+  def result
     winner = find_winner
     if winner == "Ничья"
       pay_to(gamer)

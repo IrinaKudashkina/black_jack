@@ -1,13 +1,9 @@
-require_relative "game_menu"
+require_relative "game"
 require_relative "gamer"
-require_relative "game_session"
+require_relative "session"
+require_relative "messenger"
+require_relative "menu"
 
-deck = {}
-%w[+ <3 ^ <>].each do |suit|
-  (2..10).to_a.each { |value| deck["#{value}#{suit}"] = value }
-  %w[В Д К].each { |image| deck["#{image}#{suit}"] = 10 }
-  deck["Т#{suit}"] = 1
-end
-DECK = deck.freeze
-
-GameMenu.new.main
+messenger = Messenger.new
+menu = Menu.new(messenger)
+Game.new(messenger, menu).start
